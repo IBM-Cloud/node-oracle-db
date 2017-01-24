@@ -28,9 +28,9 @@ var dbConfig = require('./dbconfig.js');
 
 var doconnect = function (cb) {
     oracledb.getConnection({
-            user: dbConfig.user,
-            password: dbConfig.password,
-            connectString: 'https://ora1234-caibmtrial.db.us2.oraclecloudapps.com/apex/' //dbConfig.connectString
+            user: "system",
+            password: "bluemix",
+            connectString: '169.44.13.233:1521/xe'
         },
         cb);
 };

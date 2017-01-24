@@ -6,9 +6,10 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "4.13.x",
-    "cfenv": "1.0.x",
-    "async": "~2.1.4"
+    "async": "^2.1.4",
+    "cfenv": "^1.0.3",
+    "express": "^4.13.4",
+    "oracledb": "~1.12.2"
   },
   "repository": {},
   "engines": {

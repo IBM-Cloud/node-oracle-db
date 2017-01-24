@@ -3,6 +3,6 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: oracled
-  host: oracled
+  name: oracled-rvennam
   disk_quota: 1024M
+  buildpack: https://github.com/antonmc/nodejs-oracledb-buildpack
