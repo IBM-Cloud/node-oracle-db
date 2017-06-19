@@ -28,9 +28,9 @@ var dbConfig = require('./dbconfig.js');
 
 var doconnect = function (cb) {
     oracledb.getConnection({
-            user: dbConfig.user,
-            password: dbConfig.password,
-            connectString: 'https://ora1234-caibmtrial.db.us2.oraclecloudapps.com/apex/' //dbConfig.connectString
+            user: '', //dbConfig.user,
+            password: '', // dbConfig.password,
+            connectString: '' //dbConfig.connectString
         },
         cb);
 };
@@ -57,7 +57,7 @@ var dodrop = function (conn, cb) {
 
 var docreate = function (conn, cb) {
     conn.execute(
-        "CREATE TABLE test (id NUMBER, name VARCHAR2(20))",
+        "CREATE TABLE anton (id NUMBER, name VARCHAR2(20))",
         function (err) {
             if (err) {
                 return cb(err, conn);
@@ -107,14 +107,32 @@ var doupdate = function (conn, cb) {
         });
 };
 
+var doselect = function (conn, cb) {
+
+    conn.execute(
+        "SELECT 'ACCOUNT' FROM dba_tables",
+
+        //        "select 'ACCOUNT' from dba_tables",
+        //        "select 'id' from 'ACCOUNT'",
+        //        "select 'nik_name' from 'ACCOUNT'",
+        //        "select * from user",
+        function (err, result) {
+            if (err) {
+                return cb(err, conn);
+            } else {
+                console.log(JSON.stringify(result)); // 2
+                return cb(null, conn);
+            }
+        });
+
+
+};
+
 async.waterfall(
   [
     doconnect,
-    dodrop,
-    docreate,
-    doinsert1,
-    doinsert2,
-    doupdate,
+      docreate,
+doselect,
     dodrop
   ],
     function (err, conn) {
@@ -124,6 +142,25 @@ async.waterfall(
         if (conn)
             dorelease(conn);
     });
+
+
+//async.waterfall(
+//  [
+//    doconnect,
+//    dodrop,
+//    docreate,
+//    doinsert1,
+//    doinsert2,
+//    doupdate,
+//    dodrop
+//  ],
+//    function (err, conn) {
+//        if (err) {
+//            console.error("In waterfall error cb: ==>", err, "<==");
+//        }
+//        if (conn)
+//            dorelease(conn);
+//    });
 
 
 // start server on the specified port and binding host
